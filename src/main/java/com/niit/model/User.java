@@ -1,10 +1,13 @@
-package com.spring.model;
-
+package com.niit.model;
 import java.io.Serializable;
 
+import javax.persistence.*;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
 
 @Entity
 public class User implements  Serializable
@@ -16,30 +19,30 @@ public class User implements  Serializable
 	@Id
 	@GeneratedValue
 	private int id;
+	
+	@NotNull(message="please enter the username")
+	@Size(min=5,max=10)
 	private String username;
+	
+	@NotNull(message="please enter the email")
+	@Email
 	private String email;
-	private String enable;
-
+	
+	@NotNull(message="please enter the password")
+	@Size(min = 6, max = 15)
 	private String password;
-	private String role;
-
+	
+	@NotNull(message="please enter the contact")
+	@Pattern(regexp="(^$|[0-9]{10})")
 	private String contact;
 	
-	public String getEnable() {
-		return enable;
-	}
-	public void setEnable(String enable) {
-		this.enable = enable;
-	}
+	
 
+	
 
-	public String getRole() {
-		return role;
-	}
-	public void setRole(String role) {
-		this.role = role;
-	}
-
+	private String role;
+	private boolean enabled;
+	
 	public int getId()
 	{
 		return id;
@@ -81,7 +84,24 @@ public class User implements  Serializable
 	{
 		this.contact = contact;
 	}
+	public String getRole() 
+	{
+		return role;
+	}
+	public void setRole(String role) 
+	{
+		this.role = role;
+	}
+	public boolean isEnabled()
+	{
+		return enabled;
+		
+	}
+	public void setEnabled(boolean enabled) 
+	{
+		this.enabled = enabled;
+	}
 	
 	
-}	
+}
 	
